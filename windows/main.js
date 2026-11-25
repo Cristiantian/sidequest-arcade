@@ -24,6 +24,9 @@ const MOD = 'Control+Alt';
 const KEYNAME = process.platform === 'darwin' ? '⌃⌥' : 'Ctrl+Alt+';
 
 if (!app.requestSingleInstanceLock()) app.quit();
+// Google's sign-in button tries Chrome's FedCM API first, which Electron can't show; without it Google
+// falls back to its classic sign-in popup, which the window-open handler below keeps inside SideQuest.
+app.commandLine.appendSwitch('disable-features', 'FedCm,FedCmButtonMode');
 
 // ---- settings --------------------------------------------------------------
 const settingsFile = () => path.join(app.getPath('userData'), 'settings.json');
@@ -58,11 +61,23 @@ function create() {
   const wc = game.webContents;
   wc.setAudioMuted(S.muted);
   // A plain desktop browser UA, so the site serves its normal desktop game page.
-  wc.setUserAgent(wc.getUserAgent().replace(/\s*(Electron|sidequest-arcade)\/\S+/gi, ''));
+  // Session-wide, so login popups present the same plain browser UA (Google refuses sign-in from "Electron").
+  wc.session.setUserAgent(wc.getUserAgent().replace(/\s*(Electron|sidequest-arcade)\/\S+/gi, ''));
+  // Login/sign-up popups open in a small SideQuest window that shares this session, so the game sees you as
+  // logged in. Anything else (ads, "more info" links) goes to the real browser rather than replacing the game.
   wc.setWindowOpenHandler(({ url }) => {
     const slug = slugOf(url);
-    if (slug) play(slug); else if (/^https?:/.test(url)) shell.openExternal(url);
+    if (slug) { play(slug); return { action: 'deny' }; }
+    if (isAuth(url)) return { action: 'allow', overrideBrowserWindowOptions: {
+      width: 480, height: 640, title: 'Sign in · SideQuest', autoHideMenuBar: true, alwaysOnTop: true,
+      parent: win, modal: false, backgroundColor: '#ffffff' } };
+    if (/^https?:/.test(url)) shell.openExternal(url);
     return { action: 'deny' };
+  });
+  wc.on('did-create-window', (pop) => {
+    pop.setAlwaysOnTop(true, 'screen-saver', 1);   // above the game screen (and WoW)
+    pop.webContents.setWindowOpenHandler(({ url }) => (isAuth(url) ? { action: 'allow' } : (shell.openExternal(url), { action: 'deny' })));
+    pop.on('closed', () => { if (!win.isDestroyed()) grab(); });
   });
   wc.on('did-navigate', (_e, url) => { S.lastURL = url; save(); });
   wc.on('did-navigate-in-page', (_e, url) => { S.lastURL = url; save(); });
@@ -106,6 +121,17 @@ function slugOf(url) {
     const m = u.pathname.match(/^\/(game|embed)\/([^/]+)/);
     return m ? m[2] : null;
   } catch { return null; }
+}
+const AUTH = ['crazygames.com', 'google.com', 'apple.com', 'facebook.com', 'discord.com', 'twitch.tv',
+  'microsoftonline.com', 'live.com', 'firebaseapp.com', 'googleapis.com'];
+const ADS = /doubleclick|googlesyndication|googleadservices|adservice|adclick/;
+function isAuth(url) {
+  if (!url || url === 'about:blank') return true;          // blank popups get filled in by the opener
+  try {
+    const h = new URL(url).hostname.toLowerCase();
+    if (ADS.test(h)) return false;
+    return AUTH.some(d => h === d || h.endsWith('.' + d));
+  } catch { return false; }
 }
 function play(slug) { game.webContents.loadURL(`https://www.crazygames.com/game/${slug}`); }
 function browse() { game.webContents.loadURL(HOME); grab(); }

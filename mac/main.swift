@@ -248,17 +248,57 @@ final class App: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDele
     }
 
     func webView(_ w: WKWebView, didFinish n: WKNavigation!) {
+        guard w === web else { return }
         if let u = w.url?.absoluteString { d.set(u, forKey: "lastURL") }
         refreshFocusUI()
     }
 
-    // Popups (ads, "open on CrazyGames", login) go to the real browser rather than replacing the game.
+    // Login/sign-up popups (CrazyGames, Google, Apple, Facebook, Discord…) open in a small SideQuest window
+    // that shares this web view's cookies, so the game sees you as logged in. Anything else (ads, "more
+    // info" links) goes to the real browser rather than replacing the game.
+    var popups: [NSWindow] = []
+
+    static func isAuth(_ u: URL?) -> Bool {
+        guard let u, let host = u.host?.lowercased() else { return true }   // blank popups get filled in by the opener
+        if u.scheme == "about" { return true }
+        let auth = ["crazygames.com", "google.com", "apple.com", "facebook.com", "discord.com", "twitch.tv",
+                    "microsoftonline.com", "live.com", "firebaseapp.com", "googleapis.com"]
+        let ads = ["doubleclick", "googlesyndication", "googleadservices", "adservice", "adclick"]
+        if ads.contains(where: { host.contains($0) }) { return false }
+        return auth.contains(where: { host == $0 || host.hasSuffix("." + $0) })
+    }
+
     func webView(_ w: WKWebView, createWebViewWith c: WKWebViewConfiguration, for a: WKNavigationAction,
                  windowFeatures f: WKWindowFeatures) -> WKWebView? {
-        if let u = a.request.url {
-            if let s = App.slug(from: u) { play(s) } else { NSWorkspace.shared.open(u) }
-        }
-        return nil
+        let u = a.request.url
+        if let u, let s = App.slug(from: u) { play(s); return nil }
+        guard App.isAuth(u) else { if let u { NSWorkspace.shared.open(u) }; return nil }
+
+        let size = NSSize(width: CGFloat(truncating: f.width ?? 480), height: CGFloat(truncating: f.height ?? 640))
+        let pop = NSWindow(contentRect: NSRect(origin: .zero, size: size), styleMask: [.titled, .closable, .resizable],
+                           backing: .buffered, defer: false)
+        pop.title = "Sign in · SideQuest"
+        pop.level = NSWindow.Level(rawValue: panel.level.rawValue + 1)   // above the game screen (and WoW)
+        pop.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        pop.isReleasedWhenClosed = false
+        let v = WKWebView(frame: NSRect(origin: .zero, size: size), configuration: c)   // must use WebKit's config
+        v.uiDelegate = self
+        v.navigationDelegate = self
+        v.autoresizingMask = [.width, .height]
+        pop.contentView = v
+        pop.center()
+        popups.append(pop)
+        NSApp.activate(ignoringOtherApps: true)
+        pop.makeKeyAndOrderFront(nil)
+        return v
+    }
+
+    // The login page calls window.close() when it's done.
+    func webViewDidClose(_ v: WKWebView) {
+        guard let pop = popups.first(where: { $0.contentView === v }) else { return }
+        pop.orderOut(nil)
+        popups.removeAll { $0 === pop }
+        panel.makeKeyAndOrderFront(nil)
     }
 
     // MARK: focus — the keyboard goes to the game or to WoW, never both
