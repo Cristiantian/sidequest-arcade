@@ -27,7 +27,8 @@ article:has(.sg-sq)>.entry-header,article:has(.sg-sq)>.ast-article-featured-sect
 .sg-sq .wrap{max-width:1280px;margin:auto;padding-inline:clamp(22px,5vw,68px)}
 .sg-sq a:focus-visible,.sg-sq summary:focus-visible{outline:3px solid #977fff;outline-offset:5px}
 .sg-sq h1,.sg-sq h2,.sg-sq h3{font:800 clamp(38px,5vw,64px)/.98 "Barlow Condensed",Impact,sans-serif;text-transform:uppercase;color:inherit}
-.sg-sq h1{font-size:clamp(64px,9.5vw,136px);letter-spacing:-.03em}
+.sg-sq h1{font-size:clamp(50px,6.2vw,104px);letter-spacing:-.02em}
+.sg-sq h1,.sg-sq h2,.sg-sq h3{overflow-wrap:normal;word-break:normal;hyphens:none}
 .sg-sq h2 span{color:var(--purple)}
 .sg-sq h3{font-size:26px}
 .sg-sq .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
