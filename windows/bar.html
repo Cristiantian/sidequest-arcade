@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<title>SideQuest Arcade</title>
+<style>
+  :root { --bg: #09090b; --fg: #e8e8ea; --dim: #8b8b93; --violet: #7c5cff; }
+  html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden;
+    font: 600 11px/1 "Segoe UI", system-ui, -apple-system, sans-serif; color: var(--fg); user-select: none; }
+  .bar { height: 28px; display: flex; align-items: center; gap: 2px; padding: 0 4px;
+    border-bottom: 2px solid #3a3a40; -webkit-app-region: drag; }
+  .bar.playing { border-color: var(--violet); }
+  select, button { -webkit-app-region: no-drag; }
+  select { background: transparent; color: var(--fg); border: 0; font: inherit; padding: 2px 2px; max-width: 140px;
+    border-radius: 4px; cursor: pointer; }
+  select:hover, button:hover { background: #1c1c22; }
+  select option { background: #1c1c22; color: var(--fg); }
+  button { width: 24px; height: 22px; border: 0; background: transparent; border-radius: 4px; padding: 0;
+    display: grid; place-items: center; cursor: pointer; color: var(--fg); }
+  svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .hint { flex: 1; min-width: 0; color: var(--dim); font-weight: 500; font-size: 10px; padding-left: 6px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .playing .hint { color: #b7a6ff; font-weight: 700; }
+  #mute.on { color: #ff9f43; }
+</style>
+</head>
+<body>
+<div class="bar" id="bar">
+  <select id="games" title="Pick a game"><option value="">Games</option></select>
+  <button data-act="browse" title="Browse CrazyGames"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></button>
+  <button data-act="reload" title="Reload"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/></svg></button>
+  <div class="hint" id="hint"></div>
+  <button id="mute" data-act="toggleMute" title="Mute"><svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="wave" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>
+  <button data-act="dockLeft" title="Dock left"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
+  <button data-act="dockRight" title="Dock right"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg></button>
+  <button data-act="cycleSize" title="Size"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button>
+  <button data-act="toggleShown" title="Hide"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  let key = 'Ctrl+Alt+', filled = false;
+  document.querySelectorAll('button[data-act]').forEach(b => b.onclick = () => sq.act(b.dataset.act));
+  $('games').onchange = (e) => { if (e.target.value !== '') sq.act('game', +e.target.value); e.target.value = ''; };
+  sq.onState((s) => {
+    key = s.key;
+    if (!filled) {
+      s.games.forEach((g, i) => $('games').add(new Option(g, i)));
+      filled = true;
+    }
+    $('bar').classList.toggle('playing', s.playing);
+    $('hint').textContent = s.playing ? `PLAYING · ${key}Space → back` : `${key}Space or click to play`;
+    $('mute').classList.toggle('on', s.muted);
+    $('wave').style.display = s.muted ? 'none' : '';
+    $('mute').title = `${s.muted ? 'Unmute' : 'Mute'} (${key}M)`;
+    for (const [act, k] of [['dockLeft', 'Left'], ['dockRight', 'Right'], ['cycleSize', '= / -'], ['toggleShown', 'G'], ['reload', 'R'], ['browse', 'B']]) {
+      const b = document.querySelector(`[data-act=${act}]`); b.title = b.title.replace(/ \(.*/, '') + ` (${key}${k})`;
+    }
+  });
+  sq.act('ready');
+</script>
+</body>
+</html>

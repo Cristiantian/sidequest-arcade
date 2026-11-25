@@ -1,0 +1,21 @@
+SideQuest Arcade - play CrazyGames on top of World of Warcraft (macOS 13+, Apple Silicon or Intel)
+
+1. Drag "SideQuest.app" into your Applications folder.
+2. Open it. The first time, macOS will say it can't check the app (it isn't notarized yet):
+   open System Settings > Privacy & Security, scroll down, click "Open Anyway", confirm.
+   You only do this once.
+3. In WoW: Options > Graphics > Display Mode = "Windowed (Fullscreen)".
+   (Plain "Fullscreen" hides every overlay, including this one.)
+4. A small game screen appears docked on the right, with a controller icon in the menu bar.
+
+Hotkeys (they work while you're in WoW):
+  Control+Option+Space   swap the keyboard: game <-> WoW (purple line = the game has the keyboard)
+  Control+Option+G       show / hide the screen
+  Control+Option+Left / Right   dock left / right
+  Control+Option+= / -   bigger / smaller
+  Control+Option+1..9    pick a game
+  Control+Option+B       browse all of CrazyGames
+  Control+Option+M       mute       Control+Option+R  reload
+
+Clicking the game also gives it the keyboard; clicking WoW gives it back.
+Menu bar icon: opacity and Quit. Drag the top bar to move it, drag the edges to resize.

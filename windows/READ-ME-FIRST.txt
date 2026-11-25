@@ -1,0 +1,20 @@
+SideQuest Arcade - play CrazyGames on top of World of Warcraft
+
+1. In WoW: Options > Graphics > Display Mode = "Windowed (Fullscreen)".
+   (Plain "Fullscreen" hides every overlay, including this one.)
+2. Double-click SideQuest.exe. Windows may say "Windows protected your PC" because
+   the app isn't signed yet: click "More info" > "Run anyway".
+3. A small game screen appears docked on the right, with a purple controller in the tray.
+
+Hotkeys (they work while you're in WoW):
+  Ctrl+Alt+Space   swap the keyboard: game <-> WoW (purple line = the game has the keyboard)
+  Ctrl+Alt+G       show / hide the screen
+  Ctrl+Alt+Left / Right   dock left / right
+  Ctrl+Alt+= / -   bigger / smaller
+  Ctrl+Alt+1..9    pick a game
+  Ctrl+Alt+B       browse all of CrazyGames
+  Ctrl+Alt+M       mute       Ctrl+Alt+R  reload
+
+Clicking the game also gives it the keyboard; clicking WoW gives it back.
+Right-click the tray icon for opacity, "Start with Windows" and Quit.
+Drag the top bar to move it, drag the edges to resize.

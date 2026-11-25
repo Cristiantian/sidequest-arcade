@@ -1,0 +1,105 @@
+<!-- wp:html -->
+<style>
+@font-face{font-family:Barlow;src:url(https://fonts.gstatic.com/s/barlow/v13/7cHpv4kjgoGqM7EPCw.ttf) format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:Barlow;src:url(https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E3t-4c4A.ttf) format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:"Barlow Condensed";src:url(https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B47b1_3E.ttf) format("truetype");font-weight:800;font-display:swap}
+body:has(.sg-sq) #content,body:has(.sg-sq) #primary{background:#fff}
+body:has(.sg-sq) #content>.ast-container{display:block;width:100%;max-width:none!important;padding:0!important}
+body:has(.sg-sq) #primary,body:has(.sg-sq) article:has(.sg-sq),body:has(.sg-sq) .entry-content:has(.sg-sq){width:100%;margin:0;padding:0;max-width:none}
+article:has(.sg-sq)>.entry-header,article:has(.sg-sq)>.ast-article-featured-section{display:none}
+.sg-sq .hero,.sg-sq .facts,.sg-sq .closing{box-shadow:0 0 0 100vmax var(--band);clip-path:inset(0 -100vmax)}
+.sg-sq .hero{--band:#100a23}
+.sg-sq .facts,.sg-sq .closing{--band:#f6f4fc}
+.sg-sq{--ink:#15121f;--muted:#585569;--purple:#5636d8;--line:#e8e5ef;--pale:#f6f4fc;color:var(--ink);font:400 18px/1.55 Barlow,Arial,sans-serif;background:#fff}
+.sg-sq,.sg-sq *{box-sizing:border-box}
+.sg-sq :where(h1,h2,h3,p,dl,dd,ol,ul,figure){margin:0}
+.sg-sq .wrap{max-width:1280px;margin:auto;padding-inline:clamp(22px,5vw,68px)}
+.sg-sq a:focus-visible,.sg-sq summary:focus-visible{outline:3px solid #977fff;outline-offset:5px}
+.sg-sq h1,.sg-sq h2,.sg-sq h3{font:800 clamp(38px,5vw,64px)/.98 "Barlow Condensed",Impact,sans-serif;text-transform:uppercase;color:inherit}
+.sg-sq h1{font-size:clamp(64px,9.5vw,136px);letter-spacing:-.03em}
+.sg-sq h2 span{color:var(--purple)}
+.sg-sq h3{font-size:26px}
+.sg-sq .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.sg-sq .hero{color:#fff;background:#100a23;padding-block:clamp(42px,7vw,96px)}
+.sg-sq .hero .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:clamp(24px,5vw,66px)}
+.sg-sq .hero .eyebrow{color:#c6b7f8}
+.sg-sq .lead{font-size:clamp(19px,2.1vw,23px);max-width:34ch;margin-block:12px 24px;color:#efecfb}
+.sg-sq .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.sg-sq .cta{display:inline-flex;justify-content:center;align-items:center;gap:10px;min-height:52px;padding:11px 20px;border-radius:7px;background:var(--purple);color:#fff;font-weight:700;text-decoration:none;line-height:1.25}
+.sg-sq .cta:hover{background:#4325b8;color:#fff}
+.sg-sq .cta.alt{background:#e7ddff;color:#241554}
+.sg-sq .cta.alt:hover{background:#fff;color:#241554}
+.sg-sq .cta svg{width:20px;height:20px;fill:currentColor}
+.sg-sq .small{color:#d4cbe5;font-size:14px;margin-top:14px}
+.sg-sq .small a{color:#e7ddff}
+.sg-sq .shot{position:relative}
+.sg-sq .shot img{display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 0 0 2px #7c5cff,0 18px 48px #070311}
+.sg-sq .shot figcaption{color:#a99fc4;font-size:13px;margin-top:10px;text-align:center}
+.sg-sq .facts{background:var(--pale)}
+.sg-sq .facts dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding-block:20px;text-align:center}
+.sg-sq .facts dl div+div{border-left:1px solid var(--line)}
+.sg-sq dt{font-weight:700}
+.sg-sq dd{color:var(--muted)}
+.sg-sq .part{padding-block:clamp(46px,7vw,88px)}
+.sg-sq .part+.part{border-top:1px solid var(--line)}
+.sg-sq .intro{max-width:65ch;margin-top:16px;color:var(--muted)}
+.sg-sq .tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:26px}
+.sg-sq .tip{background:var(--pale);border-radius:10px;padding:22px}
+.sg-sq .tip p{margin-top:8px;color:var(--muted)}
+.sg-sq .guide{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,6vw,76px)}
+.sg-sq .guide ol{padding-left:23px;margin-top:16px}
+.sg-sq .guide li+li{margin-top:10px}
+.sg-sq .keys{padding:24px;background:var(--pale);border-radius:10px;align-self:start}
+.sg-sq .keys p{color:var(--muted);font-size:15px;margin-top:6px}
+.sg-sq .keys dl{margin-top:12px}
+.sg-sq .keys dl div{display:grid;grid-template-columns:8.5em 1fr;gap:12px;padding-block:9px;border-top:1px solid var(--line)}
+.sg-sq .keys dd{font-size:16px}
+.sg-sq kbd{font:700 14px/1 Barlow,Arial,sans-serif;background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:4px 7px;white-space:nowrap}
+.sg-sq details{border-bottom:1px solid var(--line);padding-block:13px}
+.sg-sq details p{margin-top:8px;color:var(--muted)}
+.sg-sq details a{color:var(--purple);font-weight:700}
+.sg-sq summary{cursor:pointer;font-weight:700}
+.sg-sq .faq{max-width:760px}
+.sg-sq .faq h2{margin-bottom:14px}
+.sg-sq .closing{background:var(--pale);padding-block:clamp(34px,6vw,66px)}
+.sg-sq .closing .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.sg-sq .closing p{margin-top:8px;color:var(--muted)}
+.sg-sq .closing p a{color:var(--purple);font-weight:700}
+@media(max-width:760px){
+.sg-sq .hero .wrap,.sg-sq .guide,.sg-sq .tips{grid-template-columns:1fr}
+.sg-sq .hero{padding-block:34px}
+.sg-sq .facts dl{font-size:14px}
+.sg-sq .facts dl div{padding-inline:4px}
+.sg-sq .keys dl div{grid-template-columns:1fr;gap:4px}
+}
+</style>
+<div class="sg-sq" lang="de">
+  <section class="hero" aria-labelledby="sq-title">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Eine Gratis-App von Shadow Games</p>
+        <h1 id="sq-title">SideQuest Arcade</h1>
+        <p class="lead">Spiele CrazyGames in einem kleinen Fenster über World of Warcraft. Warteschlange, Flugroute, warten auf den Raid: schnell eine Runde spielen, ohne Alt+Tab.</p>
+        <div class="ctas"><a class="cta" href="https://github.com/OWNER/sidequest-arcade/releases/latest/download/SideQuest-Windows-x64.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3zm8.5-1.2L21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.5zm8.5 0H21V21l-9.5-1.3z"/></svg>Für Windows herunterladen</a><a class="cta alt" href="https://github.com/OWNER/sidequest-arcade/releases/latest/download/SideQuest-Mac.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.73c-.02-2.4 1.96-3.56 2.05-3.62-1.12-1.63-2.86-1.86-3.48-1.88-1.48-.15-2.89.87-3.64.87-.76 0-1.91-.85-3.14-.83-1.61.02-3.1.94-3.930 2.38-1.680 2.910-.430 7.210 1.200 9.570.800 1.150 1.750 2.450 2.990 2.400 1.200-.050 1.660-.780 3.110-.780 1.450 0 1.860.780 3.130.750 1.290-.020 2.110-1.170 2.900-2.330.910-1.340 1.290-2.630 1.310-2.700-.030-.010-2.510-.960-2.500-3.830zM13.980 5.680c.660-.800 1.110-1.920.990-3.030-.950.040-2.110.640-2.790 1.440-.610.710-1.150 1.840-1 2.930 1.060.080 2.140-.540 2.800-1.340z"/></svg>Für Mac herunterladen</a></div>
+        <p class="small">Gratis · Windows 10/11 und macOS 13+ · <a href="https://github.com/OWNER/sidequest-arcade">Open Source auf GitHub</a></p>
+      </div>
+      <figure class="shot"><img src="shot.png" alt="SideQuest-Arcade-Fenster mit Helix Jump" width="960" height="600" fetchpriority="high" decoding="async"><figcaption>Helix Jump in SideQuest, neben dem Spiel angedockt.</figcaption></figure>
+    </div>
+  </section>
+  <div class="facts"><dl class="wrap"><div><dt>Läuft mit</dt><dd>WoW & jedem Spiel im Fenstermodus</dd></div><div><dt>Spiele</dt><dd>Tausende auf CrazyGames</dd></div><div><dt>Preis</dt><dd>Gratis, ohne Konto</dd></div></dl></div>
+  <div class="wrap">
+    <section class="part" aria-labelledby="sq-how"><h2 id="sq-how">Dein Spiel. <span>Plus eine Side Quest.</span></h2><p class="intro">SideQuest ist ein kleines Fenster, das immer über deinem Spiel bleibt. Darin läuft die echte CrazyGames-Seite, auf das Spiel zugeschnitten. Spielstände, Logins und Multiplayer funktionieren also genau wie auf der Website.</p><div class="tips"><div class="tip"><h3>Immer im Vordergrund</h3><p>Links oder rechts andocken, Grösse ändern, transparent machen. Es bleibt über WoW, bis du es ausblendest.</p></div><div class="tip"><h3>Eine Taste zum Wechseln</h3><p>Ctrl+Alt+Leertaste schickt deine Tastatur zwischen Minispiel und WoW hin und her. Kein Alt+Tab, kein Fokusverlust.</p></div><div class="tip"><h3>Jedes CrazyGames-Spiel</h3><p>Acht schnelle Favoriten liegen auf Hotkeys, und Browse öffnet die ganze CrazyGames-Bibliothek.</p></div></div></section>
+    <section class="part guide" aria-labelledby="sq-setup">
+      <div><h2 id="sq-setup">In einer Minute <span>eingerichtet.</span></h2><ol><li><strong>Stelle WoW auf Fenstermodus (Vollbild).</strong> Optionen → Grafik → Anzeigemodus. Normales Vollbild versteckt jedes Overlay, auch dieses.</li><li><strong>Herunterladen und entpacken.</strong> Unter Windows SideQuest.exe starten. Kommt «Der Computer wurde durch Windows geschützt», auf Weitere Informationen → Trotzdem ausführen klicken.</li><li><strong>Auf dem Mac SideQuest.app in den Programme-Ordner ziehen.</strong> Beim ersten Start Systemeinstellungen → Datenschutz & Sicherheit → Trotzdem öffnen.</li><li><strong>Mit Ctrl+Alt+Leertaste spielen.</strong> Die violette Linie heisst: Das Spiel hat deine Tastatur. Nochmals drücken, und du bist zurück in WoW.</li></ol></div>
+      <div class="keys"><h3>Hotkeys</h3><p>Windows: Ctrl+Alt · Mac: Control+Option. Sie funktionieren, während du in WoW bist.</p><dl><div><dt><kbd>+ Leertaste</kbd></dt><dd>Tastatur wechseln: Spiel ↔ WoW</dd></div><div><dt><kbd>+ G</kbd></dt><dd>Fenster ein-/ausblenden</dd></div><div><dt><kbd>+ ← / →</kbd></dt><dd>Links / rechts andocken</dd></div><div><dt><kbd>+ = / -</kbd></dt><dd>Grösser / kleiner</dd></div><div><dt><kbd>+ 1 … 8</kbd></dt><dd>Direkt zu einem Spiel</dd></div><div><dt><kbd>+ B</kbd></dt><dd>Ganz CrazyGames durchstöbern</dd></div><div><dt><kbd>+ M</kbd></dt><dd>Ton aus</dd></div></dl></div>
+    </section>
+    <section class="part" aria-labelledby="sq-faq"><div class="faq"><h2 id="sq-faq">SideQuest <span>FAQ.</span></h2><details><summary>Kann mein WoW-Konto deswegen gesperrt werden?</summary><p>SideQuest greift nie auf WoW zu. Es ist ein separates Fenster auf deinem Desktop, wie die Overlays von Discord oder OBS. Es liest keinen WoW-Speicher, schleust nichts ein und ändert keine Spieldateien.</p></details><details><summary>Warum ist es kein WoW-Addon?</summary><p>WoW-Addons können keine Webseiten anzeigen. Die Pokémon-Addons haben einen ganzen Game Boy in WoWs Skriptsprache nachgebaut. Das klappt für eine Konsole, aber nicht für Tausende Browsergames. Ein eigenes Fenster kann sie alle zeigen.</p></details><details><summary>Warum warnt mich Windows oder macOS?</summary><p>Die App ist noch nicht signiert, darum kann dein System nicht prüfen, wer sie gemacht hat. Der Code ist öffentlich auf GitHub, und die Warnung verschwindet, sobald wir sie signieren.</p></details><details><summary>Funktioniert es auch mit anderen Spielen?</summary><p>Ja. Alles, was im Fenster oder im randlosen Vollbild läuft, funktioniert, nicht nur WoW.</p></details><details><summary>Ich spiele auf dem Mac. Ist das eine andere App?</summary><p>Es ist eine native Mac-Version mit denselben Funktionen und Hotkeys, einfach mit Control+Option statt Ctrl+Alt.</p></details></div></section>
+  </div>
+  <section class="closing" aria-labelledby="sq-studio">
+    <div class="wrap">
+      <div><h2 id="sq-studio">Gemacht von <span>Shadow Games.</span></h2><p>Wir machen Browsergames wie <a href="/de/lumen/">Lumen</a> und Brettspiele in der Schweiz.</p><p><a href="/de/spiele/">Unsere Spiele entdecken →</a></p></div>
+      <div class="ctas"><a class="cta" href="https://github.com/OWNER/sidequest-arcade/releases/latest/download/SideQuest-Windows-x64.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3zm8.5-1.2L21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.5zm8.5 0H21V21l-9.5-1.3z"/></svg>Für Windows herunterladen</a><a class="cta alt" href="https://github.com/OWNER/sidequest-arcade/releases/latest/download/SideQuest-Mac.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.73c-.02-2.4 1.96-3.56 2.05-3.62-1.12-1.63-2.86-1.86-3.48-1.88-1.48-.15-2.89.87-3.64.87-.76 0-1.91-.85-3.14-.83-1.61.02-3.1.94-3.930 2.38-1.680 2.910-.430 7.210 1.200 9.570.800 1.150 1.750 2.450 2.990 2.400 1.200-.050 1.660-.780 3.110-.780 1.450 0 1.860.780 3.130.750 1.290-.020 2.110-1.170 2.900-2.330.910-1.340 1.290-2.630 1.310-2.700-.030-.010-2.510-.960-2.500-3.830zM13.980 5.680c.660-.800 1.110-1.920.990-3.030-.950.040-2.110.640-2.790 1.440-.610.710-1.150 1.840-1 2.930 1.060.080 2.140-.540 2.800-1.340z"/></svg>Für Mac herunterladen</a></div>
+    </div>
+  </section>
+</div>
+<!-- /wp:html -->

@@ -1,0 +1,8 @@
+.DS_Store
+build/
+windows/node_modules/
+windows/dist/
+*.zip
+# local test copies
+SideQuest Arcade/
+SideQuest-win32-x64/
