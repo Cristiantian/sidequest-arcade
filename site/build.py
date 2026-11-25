@@ -146,7 +146,7 @@ T = {
        ("Warum warnt mich Windows oder macOS?","Die App ist noch nicht signiert, darum kann dein System nicht prüfen, wer sie gemacht hat. Der Code ist öffentlich auf GitHub, und die Warnung verschwindet, sobald wir sie signieren."),
        ("Funktioniert es auch mit anderen Spielen?","Ja. Alles, was im Fenster oder im randlosen Vollbild läuft, funktioniert, nicht nur WoW."),
        ("Ich spiele auf dem Mac. Ist das eine andere App?","Es ist eine native Mac-Version mit denselben Funktionen und Hotkeys, einfach mit Control+Option statt Ctrl+Alt.")],
-  close_h='Gemacht von <span>Shadow Games.</span>', close_p='Wir machen Browsergames wie <a href="/de/lumen/">Lumen</a> und Brettspiele in der Schweiz.',
+  close_h='Gemacht von <span>Shadow Games.</span>', close_p='Wir machen Browsergames wie <a href="/lumen/">Lumen</a> und Brettspiele in der Schweiz.',
   more="Unsere Spiele entdecken →", more_href="/de/spiele/",
  ),
 }
